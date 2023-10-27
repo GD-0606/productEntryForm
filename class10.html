@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>oops</title>
+  <style>
+  		label{
+				font-size:20px;
+			}
+		div{
+			padding-left:10px;
+			padding-top:10px;
+			width:300px;
+			margin:auto;
+			background-color:#ffc8ff;
+			border-radius:3px;
+			box-shadow:2px 2px 3px ;
+			}
+		input{
+				box-shadow:-1px -1px 1px white;
+				}
+  </style>
+ </head>
+ <body>
+ 		<h3 align="center">Product Entry form</h3>
+		<div>
+		<label>Product Name</label><br><br>
+		<input type="text" id="pname" name="pname"/><br><br>
+		<label>No.of Items</label><br><br>
+		<input type="text" id="count" name="count"/><br><br>
+		<label>Unit Prize</label><br><br>
+		<input type="text" id="cost" name="cost"/><br><br>
+		<button id="b1">Add Cart</button>&nbsp;&nbsp;
+		<button id="b2">Print Bill</button><br><br>
+		</div>
+		<script>
+				class Product
+				{
+					constructor(a,b,c){
+						this.name=a;
+						this.items=b;
+						this.unitprize=c;
+						}
+
+				}
+		</script>
+
+		<script>
+				const array=[];
+				let index=0;
+				const obj1=document.getElementById("b1");
+				obj1.onclick=function(){
+					let p=document.querySelector("#pname");
+					let c=document.querySelector("#count");
+					let up=document.querySelector("#cost");
+					//object creation
+					const obj2=new Product(p.value,c.value,up.value);
+					array[index]=obj2;
+					index++;
+					p.value="";
+					c.value="";
+					up.value="";
+					p.focus();
+					};
+				//bill preparation
+				const obj3=document.querySelector("#b2");
+				
+				obj3.onclick=()=>{
+					let SNO=1,billAmt=0,pAmt,gst=12,totalAmt;
+					document.write(`S NAME N.F.I UP PA <br>`);
+					for(i of array){
+						pAmt=i.items*i.unitprize;
+						billAmt+=pAmt;
+						
+						document.write(`${SNO}&nbsp;&nbsp;&nbsp;${i.name}&nbsp;&nbsp;&nbsp;${i.items}&nbsp;&nbsp;&nbsp;${i.unitprize}&nbsp;&nbsp;&nbsp;${pAmt}<br>`)
+						SNO++;
+						}
+					
+					document.write(`TotalAmt without GST = ${billAmt} <br>`)
+					document.write(`GST = ${gst}% <br>`);
+					totalAmt=billAmt+(billAmt*0.12);
+					document.write(`TotalAmt with GST = ${totalAmt} <br>`)
+					document.write(`<button onclick="print()">Print Bill</button>`)
+						}
+
+		</script>
+
+ </body>
+</html>
